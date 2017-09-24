@@ -181,6 +181,14 @@
       - grub
       - id_1.4.1
 
+ - name: "1.4.4 Disable Interactive Boot"
+    lineinfile: >
+      dest=/etc/sysconfig/init
+      regexp=^PROMPT=
+      line=PROMPT=no
+    tags:
+      - id_1.4.4
+
 - name: "1.5.1 | Ensure core dumps are restricted"
   lineinfile:
       state: present
@@ -230,6 +238,7 @@
   register: selinux_grub_patch
   when: ansible_selinux is defined and ansible_selinux != False and ansible_selinux.status == 'enabled'
   notify: generate new grub config
+  failed_when: false
   tags:
       - id_1.6.1.1
 

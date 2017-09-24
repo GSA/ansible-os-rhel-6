@@ -128,20 +128,83 @@
   tags:
       - id_2.1.5
 
-- name: "2.1.6 | Ensure tftp server is not enabled"
+- name: "2.1.6 | Ensure rsh server is not enabled | rsh"
+  service:
+      name: rsh.socket
+      state: stopped
+      enabled: no
+  when: rhel7gsa_rsh_server == false and rsh_service_status.stdout == "loaded"
+  tags:
+      - id_2.1.6
+
+- name: "2.1.6 | Ensure rsh server is not enabled | rlogin"
+  service:
+      name: rlogin.socket
+      state: stopped
+      enabled: no
+  when: rhel7gsa_rsh_server == false and rlogin_service_status.stdout == "loaded"
+  tags:
+      - id_2.1.6
+
+- name: "2.1.6 | Ensure rsh server is not enabled | rexec"
+  service:
+      name: rexec.socket
+      state: stopped
+      enabled: no
+  when: rhel7gsa_rsh_server == false and rexec_service_status.stdout == "loaded"
+  tags:
+      - id_2.1.6
+
+- name: "2.1.7 | Ensure talk server is not enabled"
+  service:
+      name: ntalk
+      state: stopped
+      enabled: no
+  when: rhel7gsa_ntalk_server == false and ntalk_service_status.stdout == "loaded"
+  tags:
+      - id_2.1.7
+
+- name: "2.1.8 | Ensure telnet server is not enabled"
+  service:
+      name: telnet
+      state: stopped
+      enabled: no
+  when: rhel7gsa_telnet_server == false and telnet_service_status.stdout == "loaded"
+  tags:
+      - id_2.1.8
+
+- name: "2.1.9 | Ensure tftp server is not enabled"
   stat:
       path: /etc/xinetd.d/tftp
   register: tftp_service
   tags:
-      - id_2.1.6
+      - id_2.1.9
 
-- name: "2.1.6 | Ensure tftp server is not enabled"
+- name: "2.1.9 | Ensure tftp server is not enabled"
   command: chkconfig tftp off
   when: tftp_service.stat.exists and rhel7gsa_tftp_server == false
   tags:
-      - id_2.1.6
+      - id_2.1.9
 
-- name: "2.1.7 | Ensure xinetd is not enabled"
+- name: "2.1.9| Ensure tftp server is not enabled"
+  service:
+      name: tftp
+      state: stopped
+      enabled: no
+  when: rhel7gsa_tftp_server == false and tftp_service_status.stdout == "loaded"
+  tags:
+      - id_2.1.10
+
+- name: "2.1.10 | Ensure rsync service is not enabled "
+  service:
+      name: rsyncd
+      state: stopped
+      enabled: no
+  when: rhel7gsa_rsyncd_server == false and rsyncd_service_status.stdout == "loaded"
+  tags:
+      - id_2.1.10
+
+- name: "2.1.11 | Ensure xinetd is not enabled"
   service:
       name: xinetd
       state: stopped
@@ -149,7 +212,7 @@
   when:
       - xinetd_service_status.stdout == "loaded" and not rhel7gsa_xinetd_required
   tags:
-      - id_2.1.7
+      - id_2.1.11
 
 
 - name: "2.2.2 | Ensure X Window System in not installed"
@@ -231,6 +294,7 @@
   tags:
       - id_2.2.9
 
+
 - name: "2.2.10 | Ensure HTTP server is not enabled"
   service:
       name: httpd
@@ -285,79 +349,6 @@
   tags:
       - id_2.2.16
 
-- name: "2.2.17 | Ensure rsh server is not enabled | rsh"
-  service:
-      name: rsh.socket
-      state: stopped
-      enabled: no
-  when: rhel7gsa_rsh_server == false and rsh_service_status.stdout == "loaded"
-  tags:
-      - id_2.2.17
-
-- name: "2.2.17 | Ensure rsh server is not enabled | rlogin"
-  service:
-      name: rlogin.socket
-      state: stopped
-      enabled: no
-  when: rhel7gsa_rsh_server == false and rlogin_service_status.stdout == "loaded"
-  tags:
-      - id_2.2.17
-
-- name: "2.2.17 | Ensure rsh server is not enabled | rexec"
-  service:
-      name: rexec.socket
-      state: stopped
-      enabled: no
-  when: rhel7gsa_rsh_server == false and rexec_service_status.stdout == "loaded"
-  tags:
-      - id_2.2.17
-
-- name: "2.2.18 | Ensure talk server is not enabled"
-  service:
-      name: ntalk
-      state: stopped
-      enabled: no
-  when: rhel7gsa_ntalk_server == false and ntalk_service_status.stdout == "loaded"
-  tags:
-      - id_2.2.18
-
-- name: "2.2.19 | Ensure telnet server is not enabled"
-  service:
-      name: telnet
-      state: stopped
-      enabled: no
-  when: rhel7gsa_telnet_server == false and telnet_service_status.stdout == "loaded"
-  tags:
-      - id_2.2.19
-
-- name: "2.2.20 | Ensure tftp server is not enabled"
-  service:
-      name: tftp
-      state: stopped
-      enabled: no
-  when: rhel7gsa_tftp_server == false and tftp_service_status.stdout == "loaded"
-  tags:
-      - insecure_services
-      - tftp
-      - id_2.2.20
-
-- name: "2.2.21 | Ensure rsync service is not enabled "
-  service:
-      name: rsyncd
-      state: stopped
-      enabled: no
-  when: rhel7gsa_rsyncd_server == false and rsyncd_service_status.stdout == "loaded"
-  tags:
-      - id_2.2.21
-
-- name: "2.2.21 | Ensure talk server is not enabled"
-  service:
-      name: ntalk
-      state: stopped
-      enabled: no
-  when: rhel7gsa_ntalk_server == false and ntalk_service_status.stdout == "loaded"
-  tags:
-      - id_2.2.21
 
 - name: "2.3.1 | Ensure NIS Client is not installed"
   yum:
