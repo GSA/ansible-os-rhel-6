@@ -230,6 +230,12 @@
   tags:
       - id_1.5.4
 
+- name: "Creating grub file if required"
+  file:
+    path: /etc/default/grub
+    state: touch
+  when: default_grub.stat.exists == false
+
 - name: "1.6.1.1 | Ensure SELinux is not disabled in bootloader configuration"
   replace:
       dest: /etc/default/grub

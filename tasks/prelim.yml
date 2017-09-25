@@ -20,6 +20,11 @@
   changed_when: no
   check_mode: no
 
+- name: "PRELIM | Does grub exist"
+  stat:
+    path: /etc/default/grub
+  register: default_grub
+
 # Individual service checks
 - name: "PRELIM | Check for xinetd service"
   shell: "chkconfig --list xinetd | grep LoadState | awk '{print $2}'"
