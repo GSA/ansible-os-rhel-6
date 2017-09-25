@@ -181,12 +181,12 @@
       - grub
       - id_1.4.1
 
- - name: "1.4.4 Disable Interactive Boot"
-    lineinfile: >
+- name: "1.4.4 Disable Interactive Boot"
+  lineinfile: >
       dest=/etc/sysconfig/init
       regexp=^PROMPT=
       line=PROMPT=no
-    tags:
+  tags:
       - id_1.4.4
 
 - name: "1.5.1 | Ensure core dumps are restricted"
