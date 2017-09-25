@@ -20,6 +20,163 @@
   changed_when: no
   check_mode: no
 
+# Individual service checks
+- name: "PRELIM | Check for xinetd service"
+  shell: "chkconfig --list xinetd | grep LoadState | awk '{print $2}'"
+  register: xinetd_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for ntpd service"
+  shell: "chkconfig --list ntpd | grep LoadState | awk '{print $2}'"
+  register: ntpd_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for chronyd service"
+  shell: "chkconfig --list chronyd | grep LoadState | awk '{print $2}'"
+  register: chronyd_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for avahi-daemon service"
+  shell: "chkconfig --list avahi-daemon | grep LoadState | awk '{print $2}'"
+  register: avahi_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for cups service"
+  shell: "chkconfig --list cups | grep LoadState | awk '{print $2}'"
+  register: cups_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for dhcpd service"
+  shell: "chkconfig --list dhcpd | grep LoadState | awk '{print $2}'"
+  register: dhcpd_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for slapd service"
+  shell: "chkconfig --list slapd | grep LoadState | awk '{print $2}'"
+  register: slapd_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for nfs service"
+  shell: "chkconfig --list nfs | grep LoadState | awk '{print $2}'"
+  register: nfs_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for rpcbind service"
+  shell: "chkconfig --list rpcbind | grep LoadState | awk '{print $2}'"
+  register: rpcbind_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for named service"
+  shell: "chkconfig --list named | grep LoadState | awk '{print $2}'"
+  register: named_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for vsftpd service"
+  shell: "chkconfig --list vsftpd | grep LoadState | awk '{print $2}'"
+  register: vsftpd_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for httpd service"
+  shell: "chkconfig --list httpd | grep LoadState | awk '{print $2}'"
+  register: httpd_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for dovecot service"
+  shell: "chkconfig --list dovecot | grep LoadState | awk '{print $2}'"
+  register: dovecot_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for smb service"
+  shell: "chkconfig --list smb | grep LoadState | awk '{print $2}'"
+  register: smb_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for squid service"
+  shell: "chkconfig --list| grep squid | awk '{print $2}'"
+  register: squid_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for snmpd service"
+  shell: "chkconfig --list | grep snmpd | awk '{print $2}'"
+  register: snmpd_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for ypserv service"
+  shell: "chkconfig --list| grep ypserv | awk '{print $2}'"
+  register: ypserv_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for rsh.socket service"
+  shell: "chkconfig --list| grep rsh.socket | awk '{print $2}'"
+  register: rsh_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for rlogin.socket service"
+  shell: "chkconfig --list | grep rlogin | awk '{print $2}'"
+  register: rlogin_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for rexec.socket service"
+  shell: "chkconfig --list | grep rexec | awk '{print $2}'"
+  register: rexec_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for telnet service"
+  shell: "chkconfig --list | grep telnet | awk '{print $2}'"
+  register: telnet_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for tftp service"
+  shell: "chkconfig --list | grep tftp | awk '{print $2}'"
+  register: tftp_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for rsyncd service"
+  shell: "chkconfig --list | grep rsyncd | awk '{print $2}'"
+  register: rsyncd_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for ntalk service"
+  shell: "chkconfig --list ntalk | grep rsyncd | awk '{print $2}'"
+  register: ntalk_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for autofs service"
+  shell: "chkconfig --list autofs | grep rsyncd | awk '{print $2}'"
+  register: autofs_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for rhnsd service"
+  shell: "chkconfig --list rhnsd | grep rsyncd | awk '{print $2}'"
+  register: rhnsd_service_status
+  changed_when: no
+  check_mode: no
+
 - name: "PRELIM | Gather accounts with empty password fields"
   shell: "cat /etc/shadow | awk -F: '($2 == \"\" ) {j++;print $1; } END {exit j}'"
   register: empty_password_accounts

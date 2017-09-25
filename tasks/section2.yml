@@ -129,29 +129,20 @@
       - id_2.1.5
 
 - name: "2.1.6 | Ensure rsh server is not enabled | rsh"
-  service:
-      name: rsh.socket
-      state: stopped
-      enabled: no
-  when: rhel7gsa_rsh_server == false
+  command: "chkconfig rsh off"
+  when: rhel7gsa_rsh_server == false and rsh_service_status.stdout == "on"
   tags:
       - id_2.1.6
 
 - name: "2.1.6 | Ensure rsh server is not enabled | rlogin"
-  service:
-      name: rlogin.socket
-      state: stopped
-      enabled: no
-  when: rhel7gsa_rsh_server == false
+  command: "chkconfig rlogin off"
+  when: rhel7gsa_rsh_server == false and rlogin_service_status.stdout == "on"
   tags:
       - id_2.1.6
 
 - name: "2.1.6 | Ensure rsh server is not enabled | rexec"
-  service:
-      name: rexec.socket
-      state: stopped
-      enabled: no
-  when: rhel7gsa_rsh_server == false
+  command: "chkconfig rexec off"
+  when: rhel7gsa_rsh_server == false and rexec_service_status.stdout == "on"
   tags:
       - id_2.1.6
 
@@ -160,7 +151,7 @@
       name: ntalk
       state: stopped
       enabled: no
-  when: rhel7gsa_ntalk_server == false
+  when: rhel7gsa_ntalk_server == false and ntalk_service_status.stdout == "on"
   tags:
       - id_2.1.7
 
@@ -169,7 +160,7 @@
       name: telnet
       state: stopped
       enabled: no
-  when: rhel7gsa_telnet_server == false
+  when: rhel7gsa_telnet_server == false and telnet_service_status.stdout == "on"
   tags:
       - id_2.1.8
 
@@ -191,7 +182,7 @@
       name: tftp
       state: stopped
       enabled: no
-  when: rhel7gsa_tftp_server == false and tftp_service_status.stdout == "loaded"
+  when: rhel7gsa_tftp_server == false and tftp_service_status.stdout == "on"
   tags:
       - id_2.1.10
 
@@ -200,7 +191,7 @@
       name: rsyncd
       state: stopped
       enabled: no
-  when: rhel7gsa_rsyncd_server == false and rsyncd_service_status.stdout == "loaded"
+  when: rhel7gsa_rsyncd_server == false and rsyncd_service_status.stdout == "on"
   tags:
       - id_2.1.10
 
@@ -210,7 +201,7 @@
       state: stopped
       enabled: no
   when:
-      - xinetd_service_status.stdout == "loaded" and not rhel7gsa_xinetd_required
+      - xinetd_service_status.stdout == "on" and not rhel7gsa_xinetd_required
   tags:
       - id_2.1.11
 
@@ -227,7 +218,7 @@
       name: avahi-daemon
       state: stopped
       enabled: no
-  when: rhel7gsa_avahi_server == false and avahi_service_status.stdout == "loaded"
+  when: rhel7gsa_avahi_server == false and avahi_service_status.stdout == "on"
   tags:
       - id_2.2.3
 
@@ -236,7 +227,7 @@
       name: cups
       state: stopped
       enabled: no
-  when: rhel7gsa_cups_server == false and cups_service_status.stdout == "loaded"
+  when: rhel7gsa_cups_server == false and cups_service_status.stdout == "on"
   tags:
       - id_2.2.4
 
@@ -245,7 +236,7 @@
       name: dhcpd
       state: stopped
       enabled: no
-  when: rhel7gsa_dhcp_server == false and dhcpd_service_status.stdout == "loaded"
+  when: rhel7gsa_dhcp_server == false and dhcpd_service_status.stdout == "on"
   tags:
       - id_2.2.5
 
@@ -254,7 +245,7 @@
       name: slapd
       state: stopped
       enabled: no
-  when: rhel7gsa_ldap_server == false and slapd_service_status.stdout == "loaded"
+  when: rhel7gsa_ldap_server == false and slapd_service_status.stdout == "on"
   tags:
       - id_2.2.6
 
@@ -263,7 +254,7 @@
       name: nfs
       state: stopped
       enabled: no
-  when: rhel7gsa_nfs_rpc_server == false and nfs_service_status.stdout == "loaded"
+  when: rhel7gsa_nfs_rpc_server == false and nfs_service_status.stdout == "on"
   tags:
       - id_2.2.7
 
@@ -272,7 +263,7 @@
       name: rpcbind
       state: stopped
       enabled: no
-  when: rhel7gsa_nfs_rpc_server == false and rpcbind_service_status.stdout == "loaded"
+  when: rhel7gsa_nfs_rpc_server == false and rpcbind_service_status.stdout == "on"
   tags:
       - id_2.2.7
 
@@ -281,7 +272,7 @@
       name: named
       state: stopped
       enabled: no
-  when: rhel7gsa_named_server == false and named_service_status.stdout == "loaded"
+  when: rhel7gsa_named_server == false and named_service_status.stdout == "on"
   tags:
       - id_2.2.8
 
@@ -290,7 +281,7 @@
       name: vsftpd
       state: stopped
       enabled: no
-  when: rhel7gsa_vsftpd_server == false and vsftpd_service_status.stdout == "loaded"
+  when: rhel7gsa_vsftpd_server == false and vsftpd_service_status.stdout == "on"
   tags:
       - id_2.2.9
 
@@ -300,7 +291,7 @@
       name: httpd
       state: stopped
       enabled: no
-  when: rhel7gsa_httpd_server == false and httpd_service_status.stdout == "loaded"
+  when: rhel7gsa_httpd_server == false and httpd_service_status.stdout == "on"
   tags:
       - id_2.2.10
 
@@ -309,7 +300,7 @@
       name: dovecot
       state: stopped
       enabled: no
-  when: rhel7gsa_dovecot_server == false and dovecot_service_status.stdout == "loaded"
+  when: rhel7gsa_dovecot_server == false and dovecot_service_status.stdout == "on"
   tags:
       - id_2.2.11
 
@@ -318,7 +309,7 @@
       name: smb
       state: stopped
       enabled: no
-  when: rhel7gsa_smb_server == false and smb_service_status.stdout == "loaded"
+  when: rhel7gsa_smb_server == false and smb_service_status.stdout == "on"
   tags:
       - id_2.2.12
 
@@ -327,7 +318,7 @@
       name: squid
       state: stopped
       enabled: no
-  when: rhel7gsa_squid_server == false and squid_service_status.stdout == "loaded"
+  when: rhel7gsa_squid_server == false and squid_service_status.stdout == "on"
   tags:
       - id_2.2.13
 
@@ -336,7 +327,7 @@
       name: snmpd
       state: stopped
       enabled: no
-  when: rhel7gsa_snmp_server == false and snmpd_service_status.stdout == "loaded"
+  when: rhel7gsa_snmp_server == false and snmpd_service_status.stdout == "on"
   tags:
       - id_2.2.14
 
@@ -345,7 +336,7 @@
       name: ypserv
       state: stopped
       enabled: no
-  when: rhel7gsa_nis_server == false and ypserv_service_status.stdout == "loaded"
+  when: rhel7gsa_nis_server == false and ypserv_service_status.stdout == "on"
   tags:
       - id_2.2.16
 
