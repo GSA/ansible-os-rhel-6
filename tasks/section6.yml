@@ -150,6 +150,7 @@
   register: result6_2_6
   changed_when: "result6_2_6.stdout"
   failed_when: "result6_2_6.stdout"
+  ignore_errors: true
   tags:
     - id_6.2.6
 
