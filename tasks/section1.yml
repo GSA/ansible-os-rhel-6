@@ -119,7 +119,7 @@
       name: rhnsd
       state: stopped
       enabled: no
-  when: ansible_distribution == "RedHat" and rhnsd_service_status and not rhel7gsa_rhnsd_required
+  when: rrhnsd_service_status..stdout == "on"
   tags:
       - id_1.2.5
 
