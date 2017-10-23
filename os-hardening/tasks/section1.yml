@@ -164,7 +164,7 @@
 
 - name: "1.4.1 | Ensure permissions on bootloader config are configured"
   stat:
-      path: /etc/grub2.cfg
+      path: /boot/grub/grub.cfg
   register: grub_cfg
   tags:
       - grub
@@ -238,7 +238,7 @@
 
 - name: "1.6.1.1 | Ensure SELinux is not disabled in bootloader configuration"
   replace:
-      dest: /etc/default/grub
+      dest: /boot/grub/grub.conf
       regexp: '(selinux|enforcing)\s*=\s*0\s*'
       follow: yes
   register: selinux_grub_patch
