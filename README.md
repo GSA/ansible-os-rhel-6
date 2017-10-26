@@ -1,7 +1,6 @@
 RHEL 6 GSA Benchmark
 ====================
 
-## This role is still under development
 
 This ansible content will configure RHEL/Centos 6 machine to be GSA compliant.
 
