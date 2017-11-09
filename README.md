@@ -38,7 +38,7 @@ Note, a subset of controls were removed due to operational impact or organizatio
 Dependencies
 ------------
 
-Ansible > 1.9
+Ansible > 2.4
 
 Example Playbook
 -------------------------
@@ -61,4 +61,4 @@ ansible-playbook playbook.yml --connection=local
 License
 -------
 
-Apache
+MIT
