@@ -18,6 +18,7 @@ jobs:
       - run:
           name: Install Ansible in remote container
           command: |
+            docker-compose exec centos6 rpm -ivh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
             docker-compose exec centos6 yum -y install ansible
       - run:
           name: Copy Ansible Code to Remote Container
