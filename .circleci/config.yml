@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Copy Ansible Code to Remote Container
           command: |
-            docker-compose exec centos6 mkdir -p /home/circleci/project && docker cp /home/circleci/project/. centos7:/home/circleci/project/ansible-os-rhel-6/
+            docker-compose exec centos6 mkdir -p /home/circleci/project && docker cp /home/circleci/project/. centos6:/home/circleci/project/ansible-os-rhel-6/
       - run:
           name: Install Missing Container Services
           command: |
