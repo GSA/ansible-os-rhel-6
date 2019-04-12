@@ -3,19 +3,19 @@
   - include_tasks: prelim.yml
 
   - include_tasks: section1.yml
-    when: rhel6gsa_section1
+    when: rhel17gsa_section1
 
   - include_tasks: section2.yml
-    when: rhel6gsa_section2
+    when: rhel17gsa_section2
 
   - include_tasks: section3.yml
-    when: rhel6gsa_section3
+    when: rhel17gsa_section3
 
   - include_tasks: section4.yml
-    when: rhel6gsa_section4
+    when: rhel17gsa_section4
 
   - include_tasks: section5.yml
-    when: rhel6gsa_section5
+    when: rhel17gsa_section5
 
   - include_tasks: section6.yml
-    when: rhel6gsa_section6
+    when: rhel17gsa_section6
