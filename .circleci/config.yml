@@ -1,0 +1,44 @@
+version: 2
+jobs:
+  build:
+    machine:
+      image: circleci/classic:latest
+    steps:
+      - checkout
+      - run:
+          name: Host System Setup
+          command: sudo service apparmor teardown
+      - run:
+          name: Pull Docker Image
+          command: docker-compose pull centos6
+      - run:
+          name: Set up remote container
+          command: |
+            docker-compose up -d centos6
+      - run:
+          name: Install Ansible in remote container
+          command: |
+            docker-compose exec centos6 yum -y install ansible
+      - run:
+          name: Copy Ansible Code to Remote Container
+          command: |
+            docker-compose exec centos6 mkdir -p /home/circleci/project && docker cp /home/circleci/project/. centos7:/home/circleci/project/ansible-os-rhel-6/
+      - run:
+          name: Install Missing Container Services
+          command: |
+            docker-compose exec centos6 yum -y install openssh-server 
+            docker-compose exec centos6 systemctl enable sshd
+            docker-compose exec centos6 systemctl start  sshd
+            docker-compose exec centos6 yum -y install cronie
+            docker-compose exec centos6 systemctl enable crond.service
+            docker-compose exec centos6 systemctl start crond.service
+      - run:
+          name: Run playbook.yml in remote Docker container
+          command: |
+            docker-compose exec -T centos6 cp -r /home/circleci/project/* /etc/ansible/roles
+            docker-compose exec -T centos6 ansible-playbook -vv --connection=local --inventory 127.0.0.1, /home/circleci/project/ansible-os-rhel-6/playbook.yml
+      #FIXME Uncomment once tasks are all idempotent
+      #- run:
+       #   name: Run playbook.yml again, checking to make sure it's idempotent
+        #  command: >
+         #   docker-compose exec -T centos6 ansible-playbook --connection=local --inventory 127.0.0.1, /home/circleci/project/ansible-os-rhel-6/playbook.yml | grep 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)

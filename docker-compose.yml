@@ -1,0 +1,7 @@
+centos6:
+    build: .
+    container_name: centos6
+    privileged: true
+    tty: true
+    volumes:
+      - /home/circleci/project:/home/circleci/project
